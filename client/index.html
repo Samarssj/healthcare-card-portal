@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Healthcare Card Portal</title>    
+    <!-- Google Fonts: Professional healthcare typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Google Chat Messenger SDK -->
+    <script defer src="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/chat-messenger.js"></script>
+    <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-default.css">
+    <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-layout.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+
+    <!-- Google Chat Messenger Configuration -->
+    <script>
+      window.addEventListener("chat-messenger-loaded", () => {
+        chatSdk.registerContext(
+          chatSdk.prebuilts.ces.createContext({
+            deploymentName: "projects/546321192618/locations/us/apps/4f5b38e8-d94c-4801-ab6a-1fb8b635e86b/deployments/ec6a2078-440b-48ae-bb07-bc3f53a14208",
+            tokenBroker: {
+              enableTokenBroker: true,
+              enableRecaptcha: false
+            }
+          }),
+        );
+      });
+    </script>
+    <!-- Update the url-allowlist attribute with a comma-separated list of origins allowed to render images -->
+    <chat-messenger url-allowlist="*">
+      <chat-messenger-container
+        chat-title="HealthCare Card Portal"
+        chat-title-icon="https://gstatic.com/dialogflow-console/common/assets/ccai-favicons/conversational_agents.png"
+        enable-file-upload
+        enable-audio-input
+      >
+        <chat-reset-session-button
+          slot="titlebar-actions"
+          title-text="Start new chat"
+        ></chat-reset-session-button>
+        <chat-toggle-dialog-button
+          slot="titlebar-actions"
+          title-text-expanded="Collapse"
+          title-text-collapsed="Expand"
+        ></chat-toggle-dialog-button>
+        <chat-messenger-close-button
+          slot="titlebar-actions"
+          title-text="Close"
+        ></chat-messenger-close-button>
+      </chat-messenger-container>
+    </chat-messenger>
+  </body>
+
+</html>
