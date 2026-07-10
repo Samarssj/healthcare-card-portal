@@ -4,10 +4,7 @@
   "devCommand": "pnpm run dev",
   "installCommand": "pnpm install",
   "framework": "vite",
-  "env": {
-    "VITE_ANALYTICS_ENDPOINT": "@vite_analytics_endpoint",
-    "VITE_ANALYTICS_WEBSITE_ID": "@vite_analytics_website_id"
-  },
+
   "builds": [
     {
       "src": "package.json",
