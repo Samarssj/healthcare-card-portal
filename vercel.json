@@ -5,16 +5,11 @@
   "installCommand": "pnpm install",
   "framework": "vite",
 
-  "builds": [
+
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/node@latest"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "dist/public/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
