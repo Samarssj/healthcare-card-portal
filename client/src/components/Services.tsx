@@ -26,7 +26,17 @@ const services = [
   {
     icon: CheckCircle,
     title: "Track Card Status",
-    description: "Monitor your card application and delivery status in real-time.",
+    description: "Monitor your card application and delivery status.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Access Issue",
+    description: "Raise request related to access issues.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Escalation",
+    description: "Talk to live agent when requested",
   },
 ];
 
