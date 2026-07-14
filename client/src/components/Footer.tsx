@@ -12,9 +12,9 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <h3 className="font-bold text-foreground mb-2">Healthcare Card Portal</h3>
+            <h3 className="font-bold text-foreground mb-2">EXL Services: Healthcare Card Portal</h3>
             <p className="text-sm text-muted-foreground">
-              Intelligent healthcare card management powered by AI.
+              Driving business forward with data and AI. Reimagine customer journeys, optimize operations, and leverage data for optimal performance.
             </p>
           </div>
 
@@ -86,7 +86,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="text-center text-sm text-muted-foreground">
             <p>
-              &copy; {currentYear} Healthcare Card Portal. All rights reserved.
+              &copy; {currentYear} EXL Services: Healthcare Card Portal. All rights reserved.
             </p>
             <p className="mt-2">
               Powered by AI Assistant | Secure &bull; Reliable &bull; Always Available
