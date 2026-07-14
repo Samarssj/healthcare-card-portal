@@ -1,89 +1,104 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 /**
  * Hero Section
- * Design: Asymmetric layout with text on left, hero background on right.
- * Features: Large heading, description, dual CTAs, and generated background image.
+ * Design: Asymmetric layout with text on left, hero card on right.
+ * Features: Large heading with color variation, description, dual CTAs, and digital health card visual.
  */
 export default function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden py-16 md:py-24">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/manus-storage/healthcare-hero-bg_f420c07b.png"
-          alt="Healthcare background"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />\n      </div>
-
+    <section id="home" className="relative overflow-hidden py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Text Content */}
           <div className="space-y-6">
-            <div className="space-y-3">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-                Manage Your Healthcare Card with{" "}
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  AI Assistance
-                </span>
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Get help with card creation, replacement, modifications, status tracking, and account support through our AI assistant.
-              </p>
+            {/* Badge */}
+            <div className="flex items-center gap-2 text-sm">
+              <CheckCircle className="w-4 h-4 text-primary" />
+              <span className="text-primary font-semibold tracking-wide">NEXT-GEN HEALTHCARE SOLUTIONS</span>
             </div>
+
+            {/* Headline with color variation */}
+            <div className="space-y-2">
+              <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+                <span className="text-foreground">Transforming</span>
+              </h1>
+              <h1 className="text-5xl md:text-6xl font-bold leading-tight text-primary">
+                Healthcare Card
+              </h1>
+              <h1 className="text-5xl md:text-6xl font-bold leading-tight text-foreground">
+                Management
+              </h1>
+            </div>
+
+            {/* Description */}
+            <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
+              EXL combines deep domain expertise with data-led insights to reimagine your healthcare journey through intelligent automation and digital interventions.
+            </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 active:scale-95"
-                onClick={() => {
-                  const messenger = document.querySelector("chat-messenger-container");
-                  if (messenger) {
-                    messenger.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
+                className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg"
               >
-                Chat with Assistant
+                CONNECT WITH AN AGENT
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="font-semibold rounded-lg border-2 border-primary text-primary hover:bg-primary/5 transition-all duration-200"
+                className="font-semibold rounded-lg border-2 border-foreground text-foreground hover:bg-foreground/5 transition-all duration-200"
               >
-                Learn More
+                OUR CAPABILITIES
               </Button>
             </div>
+
+            {/* Trust Badge */}
+            <p className="text-xs text-muted-foreground tracking-wide pt-4">
+              TRUSTED BY GLOBAL LEADERS
+            </p>
           </div>
 
-          {/* Right: Visual Element */}
-          <div className="hidden md:flex justify-center">
+          {/* Right: Digital Health Card Visual */}
+          <div className="hidden md:flex justify-center items-center">
             <div className="relative w-full max-w-sm">
-              {/* Decorative card illustration */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-3xl" />
-              <div className="relative bg-white border-2 border-primary/20 rounded-2xl p-8 shadow-xl">
+              {/* Card Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 rounded-3xl blur-3xl" />
+              
+              {/* Main Card */}
+              <div className="relative bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 shadow-2xl text-white">
                 <div className="space-y-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <path d="M2 10h20" />
-                    </svg>
+                  {/* Card Header */}
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-xs font-semibold text-white/80 tracking-wide">EXL HEALTHCARE</p>
+                      <h3 className="text-2xl font-bold mt-1">Digital Health Card</h3>
+                    </div>
+                    <div className="w-10 h-6 bg-white/20 rounded"></div>
                   </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-semibold text-primary">Healthcare Card</p>
-                    <p className="text-xs text-muted-foreground">Secure • Digital • Always Available</p>
+
+                  {/* Card Details */}
+                  <div className="space-y-3">
+                    <div className="h-3 bg-white/30 rounded w-full"></div>
+                    <div className="h-3 bg-white/30 rounded w-3/4"></div>
                   </div>
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-xs text-muted-foreground">Powered by AI Assistant</p>
+
+                  {/* Card Footer */}
+                  <div className="pt-4 border-t border-white/20 flex justify-between items-end">
+                    <div>
+                      <p className="text-xs text-white/80">CARD MEMBER</p>
+                      <p className="text-sm font-bold">VALUED CLIENT</p>
+                    </div>
+                    {/* Status Badge */}
+                    <div className="bg-primary/20 rounded-full p-3 flex items-center justify-center">
+                      <div className="text-center">
+                        <p className="text-xs font-semibold">STATUS</p>
+                        <p className="text-lg font-bold">99.9%</p>
+                        <p className="text-xs">EFFICIENCY</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
