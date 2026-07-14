@@ -1,12 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 /**
  * Hero Section
  * Design: Asymmetric layout with text on left, hero card on right.
- * Features: Large heading with color variation, description, dual CTAs, and digital health card visual.
+ * Features: Large heading with color variation, description, dual CTAs, and digital health card visual with scanning animation.
  */
 export default function Hero() {
+  const handleScrollToChat = () => {
+    const chatMessenger = document.querySelector("chat-messenger");
+    if (chatMessenger) {
+      chatMessenger.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  // Scanning line animation for healthcare automation theme
+  const scanningVariants = {
+    animate: {
+      y: [0, 60, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  // Pulse animation for the status badge
+  const pulseVariants = {
+    animate: {
+      scale: [1, 1.05, 1],
+      opacity: [0.8, 1, 0.8],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <section id="home" className="relative overflow-hidden py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
@@ -42,6 +75,7 @@ export default function Hero() {
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg"
+                onClick={handleScrollToChat}
               >
                 CONNECT WITH AN AGENT
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -68,7 +102,7 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 rounded-3xl blur-3xl" />
               
               {/* Main Card */}
-              <div className="relative bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 shadow-2xl text-white">
+              <div className="relative bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 shadow-2xl text-white overflow-hidden">
                 <div className="space-y-6">
                   {/* Card Header */}
                   <div className="flex justify-between items-start">
@@ -79,8 +113,16 @@ export default function Hero() {
                     <div className="w-10 h-6 bg-white/20 rounded"></div>
                   </div>
 
-                  {/* Card Details */}
-                  <div className="space-y-3">
+                  {/* Card Details with Scanning Animation */}
+                  <div className="space-y-3 relative">
+                    {/* Scanning line animation */}
+                    <motion.div
+                      className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent rounded"
+                      variants={scanningVariants}
+                      animate="animate"
+                      style={{ top: "0px" }}
+                    />
+                    
                     <div className="h-3 bg-white/30 rounded w-full"></div>
                     <div className="h-3 bg-white/30 rounded w-3/4"></div>
                   </div>
@@ -91,14 +133,18 @@ export default function Hero() {
                       <p className="text-xs text-white/80">CARD MEMBER</p>
                       <p className="text-sm font-bold">VALUED CLIENT</p>
                     </div>
-                    {/* Status Badge */}
-                    <div className="bg-primary/20 rounded-full p-3 flex items-center justify-center">
+                    {/* Status Badge with Pulse Animation */}
+                    <motion.div
+                      className="bg-primary/20 rounded-full p-3 flex items-center justify-center"
+                      variants={pulseVariants}
+                      animate="animate"
+                    >
                       <div className="text-center">
                         <p className="text-xs font-semibold">STATUS</p>
                         <p className="text-lg font-bold">99.9%</p>
                         <p className="text-xs">EFFICIENCY</p>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
