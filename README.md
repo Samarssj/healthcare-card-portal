@@ -115,6 +115,10 @@ Tailwind CSS provides the utility-first styling foundation, with Radix UI primit
 
 ## Technology stack
 
+### Stack at a glance
+
+[![React](https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white)](https://react.dev/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Vite](https://img.shields.io/badge/Vite-7-646cff?logo=vite&logoColor=white)](https://vite.dev/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/) [![Radix UI](https://img.shields.io/badge/Radix_UI-accessible_primitives-161618?logo=radixui&logoColor=white)](https://www.radix-ui.com/) [![Framer Motion](https://img.shields.io/badge/Framer_Motion-animations-0055ff?logo=framer&logoColor=white)](https://motion.dev/) [![Node.js](https://img.shields.io/badge/Node.js-runtime-339933?logo=node.js&logoColor=white)](https://nodejs.org/) [![Express](https://img.shields.io/badge/Express-static_server-000000?logo=express&logoColor=white)](https://expressjs.com/) [![Google Cloud](https://img.shields.io/badge/Google_Cloud-CX_Agent_Studio-4285f4?logo=googlecloud&logoColor=white)](https://cloud.google.com/dialogflow/cx/docs) [![Vercel](https://img.shields.io/badge/Vercel-deployment-000000?logo=vercel&logoColor=white)](https://vercel.com/)
+
 | Area | Technology | How it is used |
 | --- | --- | --- |
 | UI framework | React 19 | Component-based application and page composition. |
