@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 /**
  * Hero Section
@@ -16,7 +16,7 @@ export default function Hero() {
   };
 
   // Scanning line animation for healthcare automation theme
-  const scanningVariants = {
+  const scanningVariants: Variants = {
     animate: {
       y: [0, 60, 0],
       transition: {
@@ -28,7 +28,7 @@ export default function Hero() {
   };
 
   // Pulse animation for the status badge
-  const pulseVariants = {
+  const pulseVariants: Variants = {
     animate: {
       scale: [1, 1.05, 1],
       opacity: [0.8, 1, 0.8],
