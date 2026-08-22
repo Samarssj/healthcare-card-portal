@@ -13,29 +13,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Google Chat Messenger SDK -->
-    <script defer src="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/chat-messenger.js"></script>
+    <script id="chat-messenger-sdk" defer src="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/chat-messenger.js"></script>
     <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-default.css">
     <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-layout.css">
+    <style>
+      #gcp-agent-status {
+        position: fixed;
+        right: 24px;
+        bottom: 96px;
+        z-index: 10000;
+        width: min(360px, calc(100vw - 32px));
+        padding: 14px 16px;
+        border: 1px solid #f0b429;
+        border-radius: 12px;
+        background: #fff8e1;
+        color: #5f4500;
+        box-shadow: 0 8px 24px rgba(55, 42, 0, 0.14);
+        font: 500 14px/1.45 Inter, system-ui, sans-serif;
+      }
+
+      #gcp-agent-status[hidden] {
+        display: none;
+      }
+
+      @media (max-width: 640px) {
+        #gcp-agent-status {
+          right: 16px;
+          bottom: 88px;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <div id="root"></div>
+    <div id="gcp-agent-status" role="status" aria-live="polite" hidden>
+      Backend is currently not connected to GCP. Please try again later.
+    </div>
     <script type="module" src="/src/main.tsx"></script>
 
 
     <!-- Google Chat Messenger Configuration -->
     <script>
-      window.addEventListener("chat-messenger-loaded", () => {
-        chatSdk.registerContext(
-          chatSdk.prebuilts.ces.createContext({
-            deploymentName: "projects/546321192618/locations/us/apps/4f5b38e8-d94c-4801-ab6a-1fb8b635e86b/deployments/f36ead86-dd18-4617-ac9e-5196f06c8c13",
-            tokenBroker: {
-              enableTokenBroker: true,
-              enableRecaptcha: false
-            }
-          }),
+      (() => {
+        const status = document.getElementById("gcp-agent-status");
+        const sdk = document.getElementById("chat-messenger-sdk");
+        let messengerLoaded = false;
+
+        const hideVendorErrorPanel = () => {
+          const container = document.querySelector("chat-messenger-container");
+          const root = container?.shadowRoot;
+          if (!root) return;
+
+          let style = root.querySelector("#gcp-disconnected-style");
+          if (!style) {
+            style = document.createElement("style");
+            style.id = "gcp-disconnected-style";
+            style.textContent = ".error { display: none !important; }";
+            root.appendChild(style);
+          }
+        };
+
+        const showDisconnectedState = () => {
+          if (!status) return;
+          status.hidden = false;
+          hideVendorErrorPanel();
+        };
+
+        // The SDK emits this event when an agent request cannot be processed.
+        // Keep the vendor's technical error out of the user-facing experience.
+        document.addEventListener(
+          "chat-messenger-error-internal-error",
+          (event) => {
+            event.preventDefault();
+            showDisconnectedState();
+          },
+          true,
         );
-      });
+
+        // If the SDK itself cannot be loaded, the agent is unavailable too.
+        sdk?.addEventListener("error", showDisconnectedState);
+
+        window.addEventListener("chat-messenger-loaded", () => {
+          messengerLoaded = true;
+          window.chatSdk.registerContext(
+            window.chatSdk.prebuilts.ces.createContext({
+              deploymentName: "projects/546321192618/locations/us/apps/4f5b38e8-d94c-4801-ab6a-1fb8b635e86b/deployments/f36ead86-dd18-4617-ac9e-5196f06c8c13",
+              tokenBroker: {
+                enableTokenBroker: true,
+                enableRecaptcha: false
+              }
+            }),
+          );
+        });
+
+        // Covers an SDK load timeout without blocking the rest of the portal.
+        window.setTimeout(() => {
+          if (!messengerLoaded) showDisconnectedState();
+        }, 8000);
+      })();
     </script>
     <!-- Update the url-allowlist attribute with a comma-separated list of origins allowed to render images -->
     <chat-messenger url-allowlist="*">
