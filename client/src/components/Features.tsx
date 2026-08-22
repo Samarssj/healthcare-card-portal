@@ -30,7 +30,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="benefits" className="py-16 md:py-24">
+    <section id="capabilities" className="scroll-mt-24 py-16 md:py-24">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center space-y-3 mb-12">

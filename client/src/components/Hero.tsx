@@ -8,11 +8,28 @@ import { motion, type Variants } from "framer-motion";
  * Features: Large heading with color variation, description, dual CTAs, and digital health card visual with scanning animation.
  */
 export default function Hero() {
-  const handleScrollToChat = () => {
-    const chatMessenger = document.querySelector("chat-messenger");
-    if (chatMessenger) {
-      chatMessenger.scrollIntoView({ behavior: "smooth", block: "center" });
+  const handleOpenChat = () => {
+    const chatBubble = document.querySelector("chat-messenger-chat-bubble") as
+      | (HTMLElement & { openChat?: () => void })
+      | null;
+
+    if (chatBubble?.openChat) {
+      chatBubble.openChat();
+      return;
     }
+
+    // Fallback for slow SDK upgrades: activate the launch button directly.
+    const launchButton = chatBubble?.shadowRoot?.querySelector("button") as
+      | HTMLButtonElement
+      | null;
+    launchButton?.click();
+  };
+
+  const handleScrollToCapabilities = () => {
+    document.getElementById("capabilities")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   // Scanning line animation for healthcare automation theme
@@ -75,7 +92,7 @@ export default function Hero() {
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg"
-                onClick={handleScrollToChat}
+                onClick={handleOpenChat}
               >
                 CONNECT WITH AN AGENT
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -84,6 +101,7 @@ export default function Hero() {
                 size="lg"
                 variant="outline"
                 className="font-semibold rounded-lg border-2 border-foreground text-foreground hover:bg-foreground/5 transition-all duration-200"
+                onClick={handleScrollToCapabilities}
               >
                 OUR CAPABILITIES
               </Button>

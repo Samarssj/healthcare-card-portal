@@ -87,6 +87,7 @@
         const status = document.getElementById("gcp-agent-status");
         const sdk = document.getElementById("chat-messenger-sdk");
         let messengerLoaded = false;
+        let hideStatusTimer;
 
         const getContainerShadowRoot = () => {
           const bubble = document.querySelector("chat-messenger-chat-bubble");
@@ -108,8 +109,14 @@
 
         const showDisconnectedState = () => {
           if (!status) return;
+
+          window.clearTimeout(hideStatusTimer);
           status.hidden = false;
           hideVendorErrorPanel();
+
+          hideStatusTimer = window.setTimeout(() => {
+            status.hidden = true;
+          }, 7000);
         };
 
         // The SDK emits this event when an agent request cannot be processed.
