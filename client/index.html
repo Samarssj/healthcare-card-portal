@@ -6,7 +6,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Healthcare Card Portal</title>    
+    <title>Healthcare Card Portal</title>
     <!-- Google Fonts: Professional healthcare typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,6 +17,15 @@
     <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-default.css">
     <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-layout.css">
     <style>
+      /* Keep the official chat-bubble widget anchored like the desktop version. */
+      chat-messenger {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 999;
+        display: block;
+      }
+
       #gcp-agent-status {
         position: fixed;
         right: 24px;
@@ -36,7 +45,12 @@
         display: none;
       }
 
-      @media (max-width: 640px) {
+      @media (max-width: 600px) {
+        chat-messenger {
+          right: 12px;
+          bottom: 12px;
+        }
+
         #gcp-agent-status {
           right: 16px;
           bottom: 88px;
@@ -52,7 +66,6 @@
     </div>
     <script type="module" src="/src/main.tsx"></script>
 
-
     <!-- Google Chat Messenger Configuration -->
     <script>
       (() => {
@@ -60,40 +73,13 @@
         const sdk = document.getElementById("chat-messenger-sdk");
         let messengerLoaded = false;
 
-        const addResponsiveChatStyles = () => {
-          const container = document.querySelector("chat-messenger-container");
-          const root = container?.shadowRoot;
-          if (!root || root.querySelector("#gcp-responsive-chat-style")) return;
-
-          const style = document.createElement("style");
-          style.id = "gcp-responsive-chat-style";
-          style.textContent = `
-            @media screen and (max-width: 600px) {
-              .chat-wrapper,
-              .chat-wrapper.expanded,
-              .chat-wrapper.align-bottom-right,
-              .chat-wrapper.expanded.align-bottom-right {
-                position: fixed !important;
-                top: auto !important;
-                right: 16px !important;
-                bottom: 16px !important;
-                left: 16px !important;
-                width: auto !important;
-                max-width: none !important;
-                height: min(600px, calc(100dvh - 108px)) !important;
-                max-height: calc(100dvh - 108px) !important;
-                margin: 0 !important;
-                box-sizing: border-box !important;
-                transform: none !important;
-              }
-            }
-          `;
-          root.appendChild(style);
+        const getContainerShadowRoot = () => {
+          const bubble = document.querySelector("chat-messenger-chat-bubble");
+          return bubble?.shadowRoot?.querySelector("chat-messenger-container")?.shadowRoot;
         };
 
         const hideVendorErrorPanel = () => {
-          const container = document.querySelector("chat-messenger-container");
-          const root = container?.shadowRoot;
+          const root = getContainerShadowRoot();
           if (!root) return;
 
           let style = root.querySelector("#gcp-disconnected-style");
@@ -127,7 +113,6 @@
 
         window.addEventListener("chat-messenger-loaded", () => {
           messengerLoaded = true;
-          addResponsiveChatStyles();
           window.chatSdk.registerContext(
             window.chatSdk.prebuilts.ces.createContext({
               deploymentName: "projects/546321192618/locations/us/apps/4f5b38e8-d94c-4801-ab6a-1fb8b635e86b/deployments/f36ead86-dd18-4617-ac9e-5196f06c8c13",
@@ -145,19 +130,17 @@
         }, 8000);
       })();
     </script>
-    <!-- Update the url-allowlist attribute with a comma-separated list of origins allowed to render images -->
-    <chat-messenger
-      url-allowlist="*"
-      allow-fullscreen="never"
-      chat-width="400"
-      chat-height="600"
-      suppress-restore-on-load
-    >
-      <chat-messenger-container
+
+    <chat-messenger url-allowlist="*">
+      <chat-messenger-chat-bubble
         chat-title="HealthCare Card Portal"
         chat-title-icon="https://gstatic.com/dialogflow-console/common/assets/ccai-favicons/conversational_agents.png"
         enable-file-upload
         enable-audio-input
+        allow-fullscreen="never"
+        chat-width="400"
+        chat-height="600"
+        suppress-restore-on-load
       >
         <chat-reset-session-button
           slot="titlebar-actions"
@@ -172,7 +155,7 @@
           slot="titlebar-actions"
           title-text="Close"
         ></chat-messenger-close-button>
-      </chat-messenger-container>
+      </chat-messenger-chat-bubble>
     </chat-messenger>
   </body>
 
